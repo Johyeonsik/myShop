@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mapper.CalendarMapper">
+    <select id="list" resultType="com.example.domain.CalendarVO">
+        select * from calendar
+        where writer = #{writer}
+    </select>
+    
+     <select id="read" resultType="com.example.domain.CalendarVO">
+        select A.*, B.cus_name
+		from calendar A, customer B 
+		where A.cus_no = B.cus_no and A.cno=#{cno}
+    </select>
+    <insert id="insert">
+    	insert into calendar(title, writer, content, start, end, cus_no) 
+    	values (#{title}, #{writer}, #{content}, #{start}, #{end}, #{cus_no})
+    </insert>
+    
+    <update id="update">
+    	update calendar 
+    	set title = #{title}, writer = #{writer}, content = #{content}, start = #{start}, end = #{end}, cus_no = #{cus_no}
+    	where cno=#{cno}
+    </update>
+    <delete id="delete">
+    	delete from calendar where cno = #{cno}
+    </delete>
+
+</mapper>
